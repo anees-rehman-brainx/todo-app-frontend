@@ -1,12 +1,45 @@
-import { useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useEffect, useMemo, useState } from "react"
+import { useDispatch,useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify";
+import { forgotPassword, reset } from "../redux/userSlice";
 
 const ForgotPassword = () => {
-
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  //getting data from redux store
+  const {isError, isSuccess, message} = useSelector(state => state.user)
+
+  useEffect(() => {
+    let subscribed = true;
+
+    if(isSuccess){
+      toast.success("Check Your Email")
+      console.log(message)
+    }
+
+    else if(isError){
+      toast.error(message || "Something went wrong")
+    }
+
+    return () => {
+      dispatch(reset())
+      subscribed = false;
+    }
+
+  })
+
+  //function to handle submit button
   function handleSubmit(e){
+    e.preventDefault()
 
+    if(!email){
+      toast.error("Email required...");
+      return;
+    }
+      dispatch(forgotPassword(email))
   }
 
   return (
@@ -25,7 +58,7 @@ const ForgotPassword = () => {
         </div>
 
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary w-50 mx-auto my-2 fw-bold">
+          <button type="submit" className="btn btn-primary w-50 mx-auto my-2 fw-bold" onClick={handleSubmit}>
             Submit
           </button>
         </div>

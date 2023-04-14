@@ -15,8 +15,17 @@ const TodoList = () => {
   const todos = Array.from(todo);
 
   useEffect(() => {
-    dispatch(getAllTodosOfUser());
-  },[todo,navigate])
+    let subscribed = true;
+
+    if(subscribed){
+      dispatch(getAllTodosOfUser());
+    }
+
+    return () => {
+      subscribed = false;
+    }
+    
+  },[])
 
   //protecting route
   useEffect(() => {
