@@ -16,7 +16,6 @@ export const getAllTodos = async() => {
 
 //get all todos of a user
 export const getAllTodosOfUser = async() => {
-    console.log(token)
     const todos = await axios.get(
         `${API_URL}/todo/get_todos_by_user_id`, 
         {headers : {'access_token' : `Bearer ${token}`}}
@@ -30,8 +29,6 @@ export const getTodoByTodoId = async(id) => {
         `${API_URL}/todo/get_todo_by_todo_id/${id}`,
         {headers : {'access_token' : `Bearer ${token}`}}
         )
-    console.log("getting todo by todo id");
-    console.log(response.data);
     return response.data;
 }
 
@@ -58,13 +55,12 @@ export const updateTodo = async(todoId, todo) => {
 
 //delete todo
 export const deleteTodoByTodoId = async(todoId) => {
-    console.log("delete service")
     const isDeleted = await axios.delete(
             `${API_URL}/todo/delete_todo_by_todo_id/${todoId}`,
             {headers : {'access_token' : `Bearer ${token}`}}
          );
         
-    console.log(isDeleted)
+    return isDeleted;
 }
 
 //delete all todos of a user
