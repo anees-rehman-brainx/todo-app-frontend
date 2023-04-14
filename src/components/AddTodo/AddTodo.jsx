@@ -66,7 +66,7 @@ const AddTodo = () => {
        if(!user){
         navigate("/user/login")
        }    
-       if(todoId !== 0 && subscribed){
+       if(todoId && subscribed){
          dispatch(getTodoByTodoId(todoId));
        }
 

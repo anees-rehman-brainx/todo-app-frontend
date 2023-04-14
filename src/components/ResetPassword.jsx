@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Link, useParams, useNavigate } from "react-router-dom"
 import {resetPassword, reset} from '../redux/userSlice'
 import { toast } from "react-toastify";
-
+import {passwordRegex} from '../constants/constant'
 
 const ResetPassword = () => {
   const {id, token} = useParams();
@@ -36,7 +36,6 @@ const ResetPassword = () => {
   //handle submit button action
   function handleSubmit(e){
     e.preventDefault()
-    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
     if(!password || ! confirmPassword){
       toast.error("All feilds are required");

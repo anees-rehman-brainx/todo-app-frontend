@@ -28,17 +28,15 @@ export const forgotPassword = async(email) => {
 
 //reset password by link provided in mail
 export const resetPassword = async(data) => {
-    console.log("service hits")
     const {id, token, password, confirmPassword} = data;
-    console.log(id, token, password)
     const response = await axios.put(
-            `${API_URL}/user/reset_password/${id}/${token}`,
+            `${API_URL}/user/reset_password/${id}}`,
             {
                 newPassword : password,
                 confirmNewPassword : confirmPassword
-            }
+            },
+            {headers:`Bearer ${token}`}
         )
-        console.log(response)
         return response.data;
 }
 
