@@ -14,8 +14,8 @@ const TodoItem = ({_id,title, message, editTodo, deleteTodo}) => {
 
   return (
     <>
-    <div id={_id} className="d-flex justify-content-between w-50 mx-auto m-5 p-2 border border-2 border-primary rounded ">
-        <input type="checkbox" className='w-10' style={{width:25}}/>
+    <div id={_id} className="d-flex justify-content-between w-75 mx-auto m-5 p-2 border border-2 border-primary rounded ">
+        {/* <input type="checkbox" className='w-10' style={{width:25}}/> */}
         <h5 className=' my-3 w-25'>{title}</h5>
         <p className='my-3 w-50'>{message}</p>
         <div className='d-flex justify-content-between'>

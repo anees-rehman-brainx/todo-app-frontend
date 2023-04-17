@@ -59,6 +59,19 @@ export const resetPassword = createAsyncThunk('user/resetPassword', async(data,t
         return message;
     }
 })
+
+//change password
+export const changePassword = createAsyncThunk('user/changePassword', async(data, thunkAPI) => {
+    try {
+        const response = await userService.changePassword(data);
+        return response;
+
+    } catch (error) {
+        const message = helper(error);
+        return message;
+    }
+})
+
 // user slice
 const userSlice = createSlice({
     name : 'user',
@@ -97,7 +110,7 @@ const userSlice = createSlice({
         .addCase(login.rejected, (state, action) => {
             state.isError = true;
             state.message = action.payload;
-            state.user = null;
+            
         })
         //forgot password use cases
         .addCase(forgotPassword.fulfilled, (state, action) => {
@@ -116,7 +129,15 @@ const userSlice = createSlice({
         .addCase(resetPassword.rejected, (state, action) => {
             state.isError = true;
             state.message = action.payload;
-            console.log(state.message)
+        })
+        //change password
+        .addCase(changePassword.fulfilled, (state, action) => {
+            state.isSuccess = true;
+            state.message = action.payload;
+        })
+        .addCase(changePassword.rejected, (state, action) => {
+            state.isError = true;
+            state.message = action.payload;
         })
     }
 })

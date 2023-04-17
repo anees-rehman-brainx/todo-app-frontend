@@ -15,14 +15,14 @@ const Header = () => {
 
   return (
     <>
-      <div className="container-fluid bg-primary w-75 my-3 d-flex align-items-center">
-        <h1 className="col-7 text-white fs-100  ">ToDo App</h1>
+      <div className="container-fluid bg-primary w-100 my-3 d-flex align-items-center">
+        <h1 className="col-sm-4 col-xs-2 col-lg-8 text-white fs-100  ">ToDo App</h1>
         {user &&
-        <div className="col-5 d-flex justify-content-between">
+        <div className="col-sm-8 col-xs-10 col-lg-4 d-flex justify-content-between">
             <Link to={'/todo/create_todo'}> <h4 className="text-white my-3 text-center">Add Todo</h4></Link>
             <Link to={'/todo/all_todos'}> <h4 className="text-white my-3 text-center">All Todos</h4></Link>
             <Link to={'/user/login'}> <h4 className="text-white my-3 text-center" onClick={logout}>Logout</h4></Link>
-            <Link to={'/todo/create_todo'}> <h4 className="text-white my-3 text-center">{user?.user?.username}</h4></Link>
+            <Link to={'/user/change_password'}> <h4 className="text-white my-3 text-center">change Password</h4></Link>
           </div>           
         }
         {!user && 

@@ -14,6 +14,7 @@ import ResetPassword from "./components/ResetPassword";
 import AddTodo from "./components/AddTodo/AddTodo";
 import TodoItem from "./components/TodoItem.jsx/TodoItem";
 import TodoList from './components/TodoList.jsx/TodoList'
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="login/:id" element={<Login/>} />
         <Route path="forgot_password" element={<ForgotPassword/>} />
         <Route path="reset_password/:id/:token" element={<ResetPassword/>} />
+        <Route path="change_password" element={<ChangePassword/>} />
       </Route>
 
       <Route path="/todo">
