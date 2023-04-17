@@ -15,13 +15,11 @@ const initialState = {
 // Register the user
 export const register = createAsyncThunk('user/register', async(user, thunkAPI) => {
     try {
-        console.log("regiter slice")
         const response = await userService.register(user);
         return response;
     
     } catch (error) {
         const message = helper(error)
-        console.log(message)
         return thunkAPI.rejectWithValue(message)
     }
 })
@@ -31,15 +29,36 @@ export const login = createAsyncThunk('user/login', async(user, thunkAPI) => {
     try {
         const response = await userService.login(user)
         return response
+
     } catch (error) {
         const message = helper(error); 
         return thunkAPI.rejectWithValue(message);
     }
 })
 
-// export const reset =
+// forgot password
+export const forgotPassword = createAsyncThunk('user/forgotPassword', async(email, thunkAPI) => {
+    try {
+        const response = await userService.forgotPassword(email);
+        return response;
 
+    } catch (error) {
+        const message = helper(error);
+        return thunkAPI.rejectWithValue(message);
+    }
+})
 
+// reset password
+export const resetPassword = createAsyncThunk('user/resetPassword', async(data,thunkAPI) => {
+    try {
+        const response = await userService.resetPassword(data);
+        return response;
+
+    } catch (error) {
+        const message = helper(error);
+        return message;
+    }
+})
 // user slice
 const userSlice = createSlice({
     name : 'user',
@@ -50,10 +69,9 @@ const userSlice = createSlice({
             state.isError = false;
             state.isSuccess = false;
             state.message = ''
-            state.user = "";
-        }
+            }
     },
-
+    //extra reducers defined with use cases
     extraReducers : (builder) => {
      builder
         .addCase(register.pending, (state, action) => {
@@ -68,6 +86,7 @@ const userSlice = createSlice({
             state.isError = true;
             state.message = action.payload;
         })
+        //login cases
         .addCase(login.pending, (state, action) => {
             state.isLoading = true;
         })
@@ -80,12 +99,26 @@ const userSlice = createSlice({
             state.message = action.payload;
             state.user = null;
         })
-        // .addCase(logout.fulfilled, (state, action) => {
-        //     state.user = null;
-        // })
+        //forgot password use cases
+        .addCase(forgotPassword.fulfilled, (state, action) => {
+            state.isSuccess = true;
+            state.message = action.payload.message;
+        })
+        .addCase(forgotPassword.rejected, (state, action) => {
+            state.isError = true;
+            state.message = action.payload;
+        })
+        //reset password use cases 
+        .addCase(resetPassword.fulfilled, (state, action) => {
+            state.isSuccess = true;
+            state.message = action.payload.message;
+        })
+        .addCase(resetPassword.rejected, (state, action) => {
+            state.isError = true;
+            state.message = action.payload;
+            console.log(state.message)
+        })
     }
-
-
 })
 
 // helper function to generate error
