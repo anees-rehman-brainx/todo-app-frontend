@@ -60,7 +60,6 @@ export const changePassword = async(data) => {
         },
         {headers : {'access_token' : `Bearer ${token}`}}
     )
-    console.log(response.data)
     return response.data;
 }
 
