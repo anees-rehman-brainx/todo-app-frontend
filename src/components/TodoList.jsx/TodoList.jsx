@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useMemo} from 'react'
 import TodoItem from '../TodoItem.jsx/TodoItem'
 import {getAllTodosOfUser} from '../../redux/todoSlice'
 import { useDispatch, useSelector} from 'react-redux'
@@ -9,31 +9,30 @@ import {deleteTodoByTodoId} from '../../redux/todoSlice'
 const TodoList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [check, setCheck] = useState(false);
   //const [todos, setTodos] = useState([])
   // getting state from redux
-  const  {todo, isLoading, isSuccess, isError, message} = useSelector(state => state.todo)
+ 
+  const {todo} = useSelector(state => state.todo);
+   
   const todos = Array.from(todo);
 
   useEffect(() => {
-    let subscribed = true;
-
-    if(subscribed){
-      dispatch(getAllTodosOfUser());
-    }
-
-    return () => {
-      subscribed = false;
-    }
-    
-  },[])
-
-  //protecting route
-  useEffect(() => {
     const user = localStorage.getItem('user');
+    
     if(!user){
      navigate("/user/login")
-    }    
-  })
+    }
+    
+    dispatch(getAllTodosOfUser());
+    
+  },[check])
+
+  useEffect(() => {
+    dispatch(getAllTodosOfUser())
+  },[])
+  //protecting route
+
 
   //edit todo 
   function editTodo(event){
@@ -45,6 +44,8 @@ const TodoList = () => {
   function deleteTodo(event){
     const todoId = event.target.id;
     dispatch(deleteTodoByTodoId(todoId));
+    setCheck((prev) => !prev)
+
   }
 
   return (

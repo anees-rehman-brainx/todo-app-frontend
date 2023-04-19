@@ -3,13 +3,14 @@ import { object, string, number, date, InferType } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate } from 'react-router-dom'
 import {toast} from 'react-toastify'
-import {register} from "../redux/userSlice"
+import {register, reset} from "../redux/userSlice";
+import {  } from "../constants/constant";
+
 
 const Register = () => {
   const [userData, setUser] = useState({username:'', email: '', password:'', confirmPassword:''});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let errorMessage;
 
   // // yup validator schemas
   // const validatorSchema = object({
@@ -19,28 +20,35 @@ const Register = () => {
   // });
 
   // getting state from redux
-  const  {user, isLoading, isSuccess, isError, message} = useSelector(state => state.user)
+  let  {user, isSuccess, isError, message} = useSelector(state => state.user)
 
   function handleChange(e){
     setUser({...userData, [e.target.name]:e.target.value});
   }
 
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if(user){
+      toast.error('logout first');
+      navigate("todo/create_todo")
+    }
+  })
+  
+  
   //updating status w.r.t user state in store
   useEffect(()=>{
 
     if(isSuccess){
       toast.success('Register successfull..');
-      navigate('/user/login')
+      dispatch(reset())
+      navigate('/user/login',{state:{isSuccess : false, isError : false, message : ''}})
     }
 
     else if(isError){
       toast.error(message)
     }
 
-    else if(isLoading){
-      toast.warn("Please wait!")
-    }
-  },[])
+  },[isSuccess,isError])
 
   //Handleing submit button
   async function handleSubmit(e){
@@ -66,12 +74,14 @@ const Register = () => {
 
     if(!userData.password.match(passwordRegex)){
       toast.error("Invalid password")
+      return;
     }
 
     // if(isValid){
     //   dispatch(register(userData));
     // }
     dispatch(register(userData))
+
   }
   return (
 

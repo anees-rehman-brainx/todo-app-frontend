@@ -9,7 +9,7 @@ import axios from 'axios'
 export const getAllTodos = async() => {
     const todos = await axios.get(
         `${API_URL}/todo/get_all_todos`,
-        {headers:`Bearer ${token}`}
+        {headers : {'access_token' : `Bearer ${token}`}}
         );
     return todos;
 }
@@ -67,7 +67,7 @@ export const deleteTodoByTodoId = async(todoId) => {
 export const deleteAllTodos = async(userId) => {
     const isDeleted = await axios.delete(`
         ${API_URL}/todo/delete_all_todos_by_user_id`,
-        {headers : `Bearer ${token}`}
+        {headers : {'access_token' : `Bearer ${token}`}}
      )
 }
 
