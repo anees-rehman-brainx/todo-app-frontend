@@ -13,7 +13,7 @@ const AddTodo = () => {
     const dispatch = useDispatch();
 
     //getting state from redux store
-    const {todo, isError, isLoading, isSuccess, message} = useSelector(state => state.todo)
+    const {todo, isError,isSuccess, message} = useSelector(state => state.todo)
  
     //update todo value from input
     function handleChange(e){
