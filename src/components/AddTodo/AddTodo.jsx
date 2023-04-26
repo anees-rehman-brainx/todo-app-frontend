@@ -61,18 +61,14 @@ const AddTodo = () => {
 
     //use effect
     useEffect(()=>{
-      let subscribed = true; 
       const user = localStorage.getItem('user');
        if(!user){
         navigate("/user/login")
        }    
-       if(todoId && subscribed){
+       if(todoId){
          dispatch(getTodoByTodoId(todoId));
        }
 
-       return () => {
-        subscribed = true;
-       }
     },[])
 
     //DOM rendering

@@ -11,12 +11,10 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   
   const {isError, isSuccess, message} = useSelector(state => state.user)
 
   useEffect(() => {
-    let subscribed = true;
 
     if(isSuccess){
       toast.success(message || "Password Updated");
@@ -29,7 +27,6 @@ const ResetPassword = () => {
 
     return () => {
       dispatch(reset())
-      subscribed = false;
     }
   },[isError, isSuccess])
 
