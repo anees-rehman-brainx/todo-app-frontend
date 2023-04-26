@@ -12,13 +12,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // // yup validator schemas
-  // const validatorSchema = object({
-  //   username : string({errorMessage : "username required"}).required("username is required"),
-  //   email : string().email().required(),
-  //   password : string().matches(regex).required().min(8).max(16)
-  // });
-
   // getting state from redux
   let  {user, isSuccess, isError, message} = useSelector(state => state.user)
 

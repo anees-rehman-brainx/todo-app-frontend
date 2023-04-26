@@ -23,7 +23,7 @@ const Login = () => {
   }
 
   let { user, isSuccess, isLoading, isError, message } = useSelector((state) => state.user);
-  console.log(user, isSuccess, isError, isLoading, message)
+  
   // yup validator schemas
   const validatorSchema = object({
     email: string().email().required(),

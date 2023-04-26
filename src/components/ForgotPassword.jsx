@@ -13,7 +13,6 @@ const ForgotPassword = () => {
   const {isError, isSuccess, message} = useSelector(state => state.user)
 
   useEffect(() => {
-    let subscribed = true;
 
     if(isSuccess){
       toast.success("Check Your Email")
@@ -26,7 +25,6 @@ const ForgotPassword = () => {
 
     return () => {
       dispatch(reset())
-      subscribed = false;
     }
 
   })
